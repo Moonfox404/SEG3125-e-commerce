@@ -32,7 +32,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="card w-100">
       <figure>
-        {product.discounted && <div className="badge badge-secondary badge-xl absolute top-2 right-2">SAVE {percentFromDiscounted(product.discountedPrice, product.price)}%</div>}
+        {
+          product.discounted &&
+          <div className="badge badge-accent badge-xl absolute top-2 right-2">
+            SAVE {percentFromDiscounted(product.discountedPrice, product.price)}%
+          </div>
+        }
         <img
           src={"./products/" + product.id + ".png"}
           alt={product.name} />
