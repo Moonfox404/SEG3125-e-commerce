@@ -5,11 +5,13 @@ import { MockProducts } from "./mock-data/MockProducts";
 import NavBar from "./components/NavBar";
 import CategoriesTabs from "./components/CategoriesTabs";
 import CategoriesNav from "./components/CategoriesNav";
+import Hero from "./components/Hero";
 
 export default function Home() {
   return (
     <div>
       <NavBar itemsInCart={2} />
+      <Hero />
       <CategoriesNav />
       <div className="w-full h-screen flex items-center justify-center">
         <ProductCard product={MockProducts[0]} />
