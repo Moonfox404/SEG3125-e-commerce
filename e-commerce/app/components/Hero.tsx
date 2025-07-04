@@ -5,12 +5,12 @@ const Hero = () => {
   return (
     <div className="h-120 bg-primary-content flex justify-center">
       <div className="relative w-full xl:max-w-[90%] h-full">
-        <div className="relative flex justify-center h-full max-w-[600px]">
-          <div className="flex flex-col justify-center w-fit">
-            <div className="bg-secondary text-secondary-content w-fit text-8xl my-1 p-2">Grow your</div>
-            <div className="bg-secondary text-secondary-content w-fit text-8xl my-1 p-2">home.</div>
-            <div>
-              <p className="text-primary text-2xl my-6">Find furniture essentials at affordable prices.</p>
+        <div className="relative flex justify-center h-full w-full md:max-w-[600px]">
+          <div className="flex flex-col justify-center w-fit items-center md:items-start">
+            <div className="bg-secondary text-secondary-content w-fit text-6xl sm:text-8xl my-1 p-2">Grow your</div>
+            <div className="bg-secondary text-secondary-content w-fit text-6xl sm:text-8xl my-1 p-2">home.</div>
+            <div className="max-w-[80%] md:max-w-[90%] text-center md:text-left">
+              <p className="text-primary text-2xl my-6">Find furniture essentials at affordable prices</p>
             </div>
             <Link href="#categories" className="btn btn-primary btn-xl w-fit">Start Exploring &#8250;</Link>
           </div>
