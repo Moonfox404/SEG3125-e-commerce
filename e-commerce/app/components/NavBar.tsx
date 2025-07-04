@@ -18,7 +18,7 @@ const NavBar = ({ itemsInCart }: NavBarProps) => {
   }, [showSearch]);
 
   return (
-    <div>
+    <nav>
       <div className="navbar px-5 md:px-10">
         <div className="flex navbar-start">
           <div className="w-30"> {/* placeholder */}
@@ -56,7 +56,7 @@ const NavBar = ({ itemsInCart }: NavBarProps) => {
           <SearchBar id="search-mobile" placeholder="I'm looking for..." onSearch={() => {}} />
         </div>
       }
-    </div>
+    </nav>
   );
 };
 
