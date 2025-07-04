@@ -13,7 +13,7 @@ export default async function Product({
   const currentProduct = MockProducts[product_id];
   return (
     <div>
-      <NavBar itemsInCart={2} />
+      <NavBar />
       <div className="w-full h-screen flex items-center justify-center">
         {currentProduct ? (
           <>

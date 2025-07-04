@@ -7,6 +7,7 @@ import {
   faStarHalfStroke,
   faStar as faStarEmpty,
 } from "@fortawesome/free-solid-svg-icons";
+import { useCart } from "../context/CartContext";
 
 type ProductDetailsProps = {
   productID: number;
@@ -24,6 +25,20 @@ export default function ProductDetails({ productID }: ProductDetailsProps) {
   const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
 
   const [selectedStyle, setSelectedStyle] = useState(product.styles[0]);
+
+  const { dispatch } = useCart();
+
+  function handleAdd() {
+    console.log("dispatching add item to cart");
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        productId: product.id,
+        quantity: quantity,
+        style: selectedStyle,
+      },
+    });
+  }
 
   return (
     <div className="flex flex-col gap-4 max-w-2xl p-4">
@@ -110,6 +125,7 @@ export default function ProductDetails({ productID }: ProductDetailsProps) {
       <button
         className="mt-4 w-full bg-black text-white py-3 font-medium rounded hover:bg-accent hover:text-black transition-all duration-200 ease-in-out cursor-pointer active:bg-primary active:text-white"
         disabled={!product.inStock}
+        onClick={handleAdd}
       >
         Add to Cart
       </button>
