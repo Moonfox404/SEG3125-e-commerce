@@ -3,7 +3,8 @@
 import { faCartShopping, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type NavBarProps = {
   itemsInCart: number;
@@ -12,38 +13,47 @@ type NavBarProps = {
 const NavBar = ({ itemsInCart }: NavBarProps) => {
   const [showSearch, setShowSearch] = useState(false);
 
+  useEffect(() => {
+    document.getElementById("search-mobile")?.focus();
+  }, [showSearch]);
+
   return (
     <div>
-      <div className="navbar max-w-screen">
+      <div className="navbar px-5 md:px-10">
         <div className="flex navbar-start">
           <div className="w-30"> {/* placeholder */}
             {/* logo */}
           </div>
           <div className="hidden md:block navbar-start">
             {/* search bar */}
-            <SearchBar placeholder="I'm looking for..." onSearch={() => { }} />
+            <SearchBar placeholder="I'm looking for..." onSearch={() => {}} />
           </div>
         </div>
         <div className="flex navbar-end justify-end">
           <div className="md:hidden">
-            <button className="btn btn-circle btn-ghost text-lg" onClick={() => {setShowSearch(!showSearch);}}>
+            <button
+              className="btn btn-circle btn-ghost text-lg"
+              onClick={
+                () => {
+                  setShowSearch(!showSearch);
+                }}
+            >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div>
           <div className="indicator">
             {/* cart */}
             <div className="absolute -right-0.5 -top-0.5 rounded-full text-xs bg-secondary text-secondary-content w-4 h-4 text-center">{itemsInCart > 0 && itemsInCart}</div>
-            <button className="btn btn-circle btn-ghost text-lg">
+            <Link className="btn btn-circle btn-ghost text-lg" href="/cart">
               <FontAwesomeIcon icon={faCartShopping} />
-            </button>
+            </Link>
           </div>
         </div>
       </div>
-
       {
         showSearch &&
-        <div className="flex items-center justify-center w-full md:hidden">
-          <SearchBar placeholder="I'm looking for..." onSearch={() => { }} />
+        <div className="flex justify-center pb-5 w-full shadow md:hidden">
+          <SearchBar id="search-mobile" placeholder="I'm looking for..." onSearch={() => {}} />
         </div>
       }
     </div>
