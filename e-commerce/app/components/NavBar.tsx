@@ -49,9 +49,9 @@ const NavBar = () => {
                 {state.length}
               </div>
             )}
-            <button className="btn btn-circle btn-ghost text-lg">
+            <a className="btn btn-circle btn-ghost text-lg" href="/cart">
               <FontAwesomeIcon icon={faCartShopping} />
-            </button>
+            </a>
           </div>
         </div>
       </div>
