@@ -33,7 +33,7 @@ const percentFromDiscounted = (
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
-    <div className="card w-100">
+    <div className="card w-full">
       <figure>
         {product.discounted && (
           <div className="badge badge-accent badge-xl absolute top-2 right-2">

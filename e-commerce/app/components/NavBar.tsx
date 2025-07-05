@@ -6,12 +6,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useCart } from "../context/CartContext";
 
-// type NavBarProps = {
-//   itemsInCart: number;
-// };
+
 
 const NavBar = () => {
   const { state } = useCart();
@@ -21,9 +20,13 @@ const NavBar = () => {
     0
   );
 
+  useEffect(() => {
+    document.getElementById("search-mobile")?.focus();
+  }, [showSearch]);
+
   return (
-    <div>
-      <div className="navbar max-w-screen">
+    <nav>
+      <div className="navbar px-5 md:px-10">
         <div className="flex navbar-start">
           <div className="w-30">
             {" "}
@@ -39,9 +42,10 @@ const NavBar = () => {
           <div className="md:hidden">
             <button
               className="btn btn-circle btn-ghost text-lg"
-              onClick={() => {
-                setShowSearch(!showSearch);
-              }}
+              onClick={
+                () => {
+                  setShowSearch(!showSearch);
+                }}
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
@@ -53,19 +57,19 @@ const NavBar = () => {
                 {numberOfItems}
               </div>
             )}
-            <a className="btn btn-circle btn-ghost text-lg" href="/cart">
+            <Link className="btn btn-circle btn-ghost text-lg" href="/cart">
               <FontAwesomeIcon icon={faCartShopping} />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
-
-      {showSearch && (
-        <div className="flex items-center justify-center w-full md:hidden">
-          <SearchBar placeholder="I'm looking for..." onSearch={() => {}} />
+      {
+        showSearch &&
+        <div className="flex justify-center pb-5 w-full shadow md:hidden">
+          <SearchBar id="search-mobile" placeholder="I'm looking for..." onSearch={() => {}} />
         </div>
-      )}
-    </div>
+      }
+    </nav>
   );
 };
 
