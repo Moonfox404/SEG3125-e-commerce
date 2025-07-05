@@ -22,7 +22,7 @@ export function CartItem({
   const product = MockProducts[productID];
 
   return (
-    <div className="flex items-center bg-white p-5 shadow mb-4">
+    <div className="flex items-center bg-white p-5 shadow">
       <div className="w-24 h-24 relative">
         <img
           src={`../../products/${product.id}.png`}

@@ -16,6 +16,10 @@ import { useCart } from "../context/CartContext";
 const NavBar = () => {
   const { state } = useCart();
   const [showSearch, setShowSearch] = useState(false);
+  let numberOfItems = state.reduce(
+    (accumulator, currentItem) => accumulator + currentItem.quantity,
+    0
+  );
 
   return (
     <div>
@@ -46,7 +50,7 @@ const NavBar = () => {
             {/* cart */}
             {state.length > 0 && (
               <div className="absolute -right-0.5 -top-0.5 rounded-full text-xs bg-secondary text-secondary-content w-4 h-4 text-center">
-                {state.length}
+                {numberOfItems}
               </div>
             )}
             <a className="btn btn-circle btn-ghost text-lg" href="/cart">
