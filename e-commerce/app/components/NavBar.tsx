@@ -3,7 +3,6 @@
 import {
   faBars,
   faCartShopping,
-  faL,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +11,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "../context/CartContext";
 import CategoriesNav from "./CategoriesNav";
+import { useRouter } from "next/navigation";
 
 
 const NavBar = ({
@@ -19,6 +19,12 @@ const NavBar = ({
 }: {
   withCategories?: boolean;
 }) => {
+  const router = useRouter();
+
+  const onSearch = (searchKey: string) => {
+    router.replace("/browse?search=" + searchKey)
+  };
+
   const { state } = useCart();
   let numberOfItems = state.reduce(
     (accumulator, currentItem) => accumulator + currentItem.quantity,
@@ -43,7 +49,7 @@ const NavBar = ({
           </div>
           <div className="hidden md:block navbar-start">
             {/* search bar */}
-            <SearchBar placeholder="I'm looking for..." onSearch={() => { }} />
+            <SearchBar placeholder="I'm looking for..." onSearch={onSearch} />
           </div>
         </div>
         <div className="flex navbar-end justify-end">
@@ -103,7 +109,7 @@ const NavBar = ({
       {
         showSearch &&
         <div className="flex justify-center pb-5 w-full shadow md:hidden">
-          <SearchBar id="search-mobile" placeholder="I'm looking for..." onSearch={() => { }} />
+          <SearchBar id="search-mobile" placeholder="I'm looking for..." onSearch={onSearch} />
         </div>
       }
     </nav>

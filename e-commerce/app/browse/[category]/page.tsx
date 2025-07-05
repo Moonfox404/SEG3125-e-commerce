@@ -1,3 +1,5 @@
+import { MockProducts } from "@/app/mock-data/MockProducts";
+import BrowseProductsPage, { CategoryName } from "@/app/page-templates/BrowseProductsPage";
 import Link from "next/link";
 
 export default async function ProductFromCategoryPage({
@@ -6,6 +8,7 @@ export default async function ProductFromCategoryPage({
   params: Promise<{ category: string }>
 }) {
   const { category } = await params;
+  const parsedCategory = category.replace(/-/g, " ");
 
   return (
     <main className="px-5 md:px-10">
@@ -13,8 +16,11 @@ export default async function ProductFromCategoryPage({
         <ul>
           <li><Link href="/">Home</Link></li>
           <li><Link href="/#categories">Categories</Link></li>
-          <li>{category.replace(/-/g, " ")}</li>
+          <li>{parsedCategory}</li>
         </ul>
+        <BrowseProductsPage category={parsedCategory as CategoryName} products={
+          Array.from({ length: 20 }, () => MockProducts[0])
+        } />
       </div>
     </main>
   );

@@ -42,11 +42,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         )}
         <a href={`/product/${product.id}`}>
-          <img src={"./products/" + product.id + ".png"} alt={product.name} />
+          <img src={"/products/" + product.id + ".png"} alt={product.name} />
         </a>
       </figure>
-      <div className="card-body grid grid-cols-3">
-        <div className="col col-span-2">
+      <div className="card-body grid grid-cols-1 md:grid-cols-3">
+        <div className="col md:col-span-2">
           <h2 className="card-title">{product.name}</h2>
           <p>{truncateDescription(product.details)}</p>
           <div className="flex w-fit items-center my-2">
@@ -65,7 +65,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         </div>
 
-        <div className="col flex flex-col items-end">
+        <div className="col flex items-center md:flex-col md:items-end">
           {product.styles && <ColourSquares colours={product.styles} />}
           <div className="card-actions py-5">
             <button className="btn btn-primary">
