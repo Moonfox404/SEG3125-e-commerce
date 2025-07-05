@@ -5,6 +5,9 @@ import NavBar from "../components/NavBar";
 import { ViewCart } from "../components/ViewCart";
 import { DeliveryInfo } from "../components/DeliveryInfo";
 import { Payment, PaymentInfo } from "../components/Payment";
+import { Confirmation } from "../components/Confirmation";
+import { useCart } from "../context/CartContext";
+import { MockProducts } from "../mock-data/MockProducts";
 
 type Step = "cart" | "delivery" | "payment" | "confirmation";
 
@@ -21,6 +24,8 @@ type DeliveryInfo = {
 
 export default function Cart() {
   const [step, setStep] = useState<Step>("cart");
+
+  const { state: cartState } = useCart();
 
   const [info, setInfo] = useState<DeliveryInfo>({
     fullName: "",
@@ -46,6 +51,13 @@ export default function Cart() {
       postalCode: "",
     },
   });
+
+  const totalItems = cartState.reduce((acc, curr) => acc + curr.quantity, 0);
+  const subTotal = cartState.reduce((acc, curr) => {
+    const product = MockProducts[Number(curr.productId)];
+    const price = product.discountedPrice ?? product.price;
+    return acc + price * curr.quantity;
+  }, 0);
 
   const handleNext = () => {
     switch (step) {
@@ -80,7 +92,13 @@ export default function Cart() {
           <CartProgressBar current={step}></CartProgressBar>
         </div>
 
-        {step === "cart" && <ViewCart onNext={handleNext} />}
+        {step === "cart" && (
+          <ViewCart
+            totalItems={totalItems}
+            subTotal={subTotal}
+            onNext={handleNext}
+          />
+        )}
 
         {step === "delivery" && (
           <DeliveryInfo
@@ -97,6 +115,14 @@ export default function Cart() {
             setPaymentInfo={setPaymentInfo}
             onNext={handleNext}
             onBack={handleBack}
+          />
+        )}
+
+        {step === "confirmation" && (
+          <Confirmation
+            totalItems={totalItems}
+            subTotal={subTotal}
+            deliveryInfo={info}
           />
         )}
       </div>

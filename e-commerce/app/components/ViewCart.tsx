@@ -7,18 +7,13 @@ import { useCart } from "../context/CartContext";
 import { MockProducts } from "../mock-data/MockProducts";
 
 type ViewCartProps = {
+  totalItems: number;
+  subTotal: number;
   onNext: () => void;
 };
 
-export function ViewCart({ onNext }: ViewCartProps) {
+export function ViewCart({ totalItems, subTotal, onNext }: ViewCartProps) {
   const { state: cartState, dispatch } = useCart();
-
-  const totalItems = cartState.reduce((acc, curr) => acc + curr.quantity, 0);
-  const subTotal = cartState.reduce((acc, curr) => {
-    const product = MockProducts[Number(curr.productId)];
-    const price = product.discountedPrice ?? product.price;
-    return acc + price * curr.quantity;
-  }, 0);
 
   if (cartState.length === 0) {
     return (
