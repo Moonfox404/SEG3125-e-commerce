@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as faStarFull } from "@fortawesome/free-solid-svg-icons";
 
 type DeliveryInfo = {
   fullName: string;
@@ -141,11 +143,32 @@ function SurveyModal({
   setSubmitted: (flag: boolean) => void;
   onClose: () => void;
 }) {
-  const [feedback, setFeedback] = useState("");
+  const [findability, setFindability] = useState("");
+  const [experienceRating, setExperienceRating] = useState(0);
+  const [favoriteFeature, setFavoriteFeature] = useState("");
+  const [improvement, setImprovement] = useState("");
+  const [recommend, setRecommend] = useState("yes");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+  };
+
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 1; i <= 10; i++) {
+      stars.push(
+        <FontAwesomeIcon
+          key={i}
+          icon={faStarFull}
+          className={`cursor-pointer text-xl ${
+            i <= experienceRating ? "text-yellow-500" : "text-gray-300"
+          }`}
+          onClick={() => setExperienceRating(i)}
+        />
+      );
+    }
+    return stars;
   };
 
   return (
@@ -157,18 +180,101 @@ function SurveyModal({
               Share Your Experience
             </h2>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <label htmlFor="feedback" className="text-sm font-medium">
-                How was your shopping experience?
-              </label>
-              <textarea
-                id="feedback"
-                name="feedback"
-                rows={4}
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-                required
-                className="border p-2 rounded w-full"
-              />
+              {/* Findability */}
+              <div className="flex flex-col">
+                <label htmlFor="findability" className="text-sm font-medium">
+                  Did you find what you were looking for?
+                </label>
+                <textarea
+                  id="findability"
+                  rows={3}
+                  value={findability}
+                  onChange={(e) => setFindability(e.target.value)}
+                  required
+                  className="border p-2 rounded w-full"
+                />
+              </div>
+
+              {/* Overall satisfaction */}
+              <div className="flex flex-col">
+                <label
+                  htmlFor="experienceRating"
+                  className="text-sm font-medium mb-2"
+                >
+                  How would you rate your overall shopping experience?
+                </label>
+                <div
+                  id="experienceRating"
+                  className="flex gap-1 max-[330px]:scale-90"
+                >
+                  {renderStars()}
+                </div>
+                <span className="text-sm text-gray-600 mt-1 max-[330px]:self-center">
+                  {experienceRating} / 10
+                </span>
+              </div>
+
+              {/* Favorite feature */}
+              <div className="flex flex-col">
+                <label
+                  htmlFor="favoriteFeature"
+                  className="text-sm font-medium"
+                >
+                  What did you like most about the shopping process?
+                </label>
+                <textarea
+                  id="favoriteFeature"
+                  rows={3}
+                  value={favoriteFeature}
+                  onChange={(e) => setFavoriteFeature(e.target.value)}
+                  required
+                  className="border p-2 rounded w-full"
+                />
+              </div>
+
+              {/* Improvement */}
+              <div className="flex flex-col">
+                <label htmlFor="improvement" className="text-sm font-medium">
+                  What could we improve to make your next visit better?
+                </label>
+                <textarea
+                  id="improvement"
+                  rows={3}
+                  value={improvement}
+                  onChange={(e) => setImprovement(e.target.value)}
+                  required
+                  className="border p-2 rounded w-full"
+                />
+              </div>
+
+              {/* Recommendation */}
+              <div className="flex flex-col">
+                <span className="text-sm font-medium">
+                  Would you recommend us to a friend?
+                </span>
+                <div className="flex gap-4 mt-1">
+                  <label className="flex items-center gap-1">
+                    <input
+                      type="radio"
+                      name="recommend"
+                      value="yes"
+                      checked={recommend === "yes"}
+                      onChange={(e) => setRecommend(e.target.value)}
+                    />
+                    Yes
+                  </label>
+                  <label className="flex items-center gap-1">
+                    <input
+                      type="radio"
+                      name="recommend"
+                      value="no"
+                      checked={recommend === "no"}
+                      onChange={(e) => setRecommend(e.target.value)}
+                    />
+                    No
+                  </label>
+                </div>
+              </div>
               <div className="flex justify-end gap-2">
                 <button
                   type="button"
