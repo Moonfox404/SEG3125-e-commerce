@@ -34,8 +34,6 @@ export function DeliveryInfo({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(info);
-    // You could validate here or send to context/state
     onNext();
   };
 
@@ -44,91 +42,139 @@ export function DeliveryInfo({
       <h2 className="text-xl font-semibold">Delivery Information</h2>
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 shadow flex flex-col gap-4"
+        className="bg-white p-6 shadow flex flex-col gap-6"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            name="fullName"
-            value={info.fullName}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col">
+            <label htmlFor="fullName" className="text-sm font-medium mb-1">
+              Full Name
+            </label>
+            <input
+              id="fullName"
+              type="text"
+              name="fullName"
+              value={info.fullName}
+              onChange={handleChange}
+              placeholder="John Doe"
+              required
+              className="border p-2 rounded w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="email" className="text-sm font-medium mb-1">
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              value={info.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              required
+              className="border p-2 rounded w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="phone" className="text-sm font-medium mb-1">
+              Phone Number
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              name="phone"
+              value={info.phone}
+              onChange={handleChange}
+              placeholder="123-456-7890"
+              required
+              className="border p-2 rounded w-full"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col">
+            <label htmlFor="street" className="text-sm font-medium mb-1">
+              Street Address
+            </label>
+            <input
+              id="street"
+              type="text"
+              name="street"
+              value={info.street}
+              onChange={handleChange}
+              placeholder="123 Main St"
+              required
+              className="border p-2 rounded w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="city" className="text-sm font-medium mb-1">
+              City
+            </label>
+            <input
+              id="city"
+              type="text"
+              name="city"
+              value={info.city}
+              onChange={handleChange}
+              placeholder="Toronto"
+              required
+              className="border p-2 rounded w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="province" className="text-sm font-medium mb-1">
+              Province
+            </label>
+            <input
+              id="province"
+              type="text"
+              name="province"
+              value={info.province}
+              onChange={handleChange}
+              placeholder="Ontario"
+              required
+              className="border p-2 rounded w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="postalCode" className="text-sm font-medium mb-1">
+              Postal Code
+            </label>
+            <input
+              id="postalCode"
+              type="text"
+              name="postalCode"
+              value={info.postalCode}
+              onChange={handleChange}
+              placeholder="A1A 1A1"
+              required
+              className="border p-2 rounded w-full"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="note" className="text-sm font-medium mb-1">
+            Delivery Note (Optional)
+          </label>
+          <textarea
+            id="note"
+            name="note"
+            value={info.note}
             onChange={handleChange}
-            placeholder="Full Name"
-            required
-            className="border p-2 rounded w-full"
-          />
-          <input
-            type="email"
-            name="email"
-            value={info.email}
-            onChange={handleChange}
-            placeholder="Email"
-            required
-            className="border p-2 rounded w-full"
-          />
-          <input
-            type="tel"
-            name="phone"
-            value={info.phone}
-            onChange={handleChange}
-            placeholder="Phone Number"
-            required
+            placeholder="Leave any special instructions here"
+            rows={4}
             className="border p-2 rounded w-full"
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            name="street"
-            value={info.street}
-            onChange={handleChange}
-            placeholder="Street Address"
-            required
-            className="border p-2 rounded w-full"
-          />
-          <input
-            type="text"
-            name="city"
-            value={info.city}
-            onChange={handleChange}
-            placeholder="City"
-            required
-            className="border p-2 rounded w-full"
-          />
-          <input
-            type="text"
-            name="province"
-            value={info.province}
-            onChange={handleChange}
-            placeholder="Province"
-            required
-            className="border p-2 rounded w-full"
-          />
-          <input
-            type="text"
-            name="postalCode"
-            value={info.postalCode}
-            onChange={handleChange}
-            placeholder="Postal Code"
-            required
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        <textarea
-          name="note"
-          value={info.note}
-          onChange={handleChange}
-          placeholder="Delivery Note (Optional)"
-          rows={4}
-          className="border p-2 rounded w-full"
-        />
-
-        <div className="flex flex-row justify-between">
+        <div className="flex justify-between">
           <button
-            type="submit"
-            className="mt-4 self-center bg-primary text-white py-2 rounded w-fit px-5 hover:bg-green-800 transition duration-150 ease-in-out hover:scale-105 cursor-pointer"
+            type="button"
             onClick={onBack}
+            className="mt-4 self-center bg-primary text-white py-2 rounded w-fit px-5 hover:bg-green-800 transition duration-150 ease-in-out hover:scale-105 cursor-pointer"
           >
             Back to Cart
           </button>
@@ -141,7 +187,6 @@ export function DeliveryInfo({
         </div>
       </form>
 
-      {/* Delivery Summary */}
       <div className="bg-white p-6 shadow">
         <h3 className="text-lg font-medium mb-2">Delivery Summary</h3>
         <p>

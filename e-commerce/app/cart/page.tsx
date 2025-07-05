@@ -4,6 +4,7 @@ import { CartProgressBar } from "../components/CartProgressBar";
 import NavBar from "../components/NavBar";
 import { ViewCart } from "../components/ViewCart";
 import { DeliveryInfo } from "../components/DeliveryInfo";
+import { Payment, PaymentInfo } from "../components/Payment";
 
 type Step = "cart" | "delivery" | "payment" | "confirmation";
 
@@ -30,6 +31,20 @@ export default function Cart() {
     province: "",
     postalCode: "",
     note: "",
+  });
+
+  const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>({
+    cardName: "",
+    cardNumber: "",
+    expiry: "",
+    cvv: "",
+    useDeliveryAddress: false,
+    billingAddress: {
+      street: "",
+      city: "",
+      province: "",
+      postalCode: "",
+    },
   });
 
   const handleNext = () => {
@@ -71,6 +86,15 @@ export default function Cart() {
           <DeliveryInfo
             info={info}
             setInfo={setInfo}
+            onNext={handleNext}
+            onBack={handleBack}
+          />
+        )}
+
+        {step === "payment" && (
+          <Payment
+            paymentInfo={paymentInfo}
+            setPaymentInfo={setPaymentInfo}
             onNext={handleNext}
             onBack={handleBack}
           />
