@@ -30,7 +30,7 @@ const percentFromDiscounted = (discountedPrice: number | undefined, price: numbe
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
-    <div className="card w-100">
+    <div className="card w-full">
       <figure>
         {
           product.discounted &&
