@@ -24,7 +24,9 @@ export default function ProductDetails({ productID }: ProductDetailsProps) {
   const hasHalf = product.rating - fullStars >= 0.5;
   const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
 
-  const [selectedStyle, setSelectedStyle] = useState(product.styles[0]);
+  const [selectedStyle, setSelectedStyle] = useState(
+    product.styles ? product.styles[0] : ""
+  );
 
   const { dispatch } = useCart();
 
