@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div className="h-120 bg-primary-content flex justify-center">
+    <div className="h-120 bg-primary-content flex justify-center max-w-screen">
       <div className="relative w-full xl:max-w-[90%] h-full">
         <div className="relative flex justify-center h-full w-full md:max-w-[600px]">
           <div className="flex flex-col justify-center w-fit items-center md:items-start">
