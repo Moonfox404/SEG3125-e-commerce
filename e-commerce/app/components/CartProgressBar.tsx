@@ -21,29 +21,30 @@ const stepsMap = {
 };
 
 export function CartProgressBar({ current }: CartProgressBarProps) {
-  let currentIndex = stepsMap[current];
+  const currentIndex = stepsMap[current];
   return (
-    <div className="flex items-center justify-between w-full p-4 bg-gray-100">
-      {steps.map((step, index) => {
-        return (
+    <div className="w-full p-2 bg-gray-100">
+      <div className="flex items-center justify-between overflow-x-auto scrollbar-hide">
+        {steps.map((step, index) => (
           <React.Fragment key={step.key}>
-            <div className="flex flex-col items-center">
+            <div className="flex-shrink-0 flex flex-col items-center min-w-[60px] sm:min-w-[80px]">
               <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center
+                className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center
                   ${index <= currentIndex ? "bg-accent" : "bg-primary"}`}
               ></div>
-              <span className="mt-1 text-xs text-gray-700">{step.label}</span>
+              <span className="mt-1 text-[10px] sm:text-xs text-gray-700 text-center">
+                {step.label}
+              </span>
             </div>
             {index < steps.length - 1 && (
               <div
-                className={`flex-1 h-0.5 mx-2 ${
-                  index <= currentIndex - 1 ? "bg-accent" : "bg-primary"
-                }`}
+                className={`flex-1 h-0.5 mx-1 sm:mx-2 flex-shrink-0 min-w-[20px]
+                  ${index < currentIndex ? "bg-accent" : "bg-primary"}`}
               ></div>
             )}
           </React.Fragment>
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 }

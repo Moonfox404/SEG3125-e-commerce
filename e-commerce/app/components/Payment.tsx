@@ -285,7 +285,7 @@ export function Payment({
           </div>
         )}
 
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-5 max-sm:flex-col">
           <button
             type="button"
             onClick={onBack}
