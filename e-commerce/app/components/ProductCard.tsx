@@ -23,24 +23,27 @@ const roundTo = (float: number, places: number) => {
   return Math.round(float * shift) / shift;
 };
 
-const percentFromDiscounted = (discountedPrice: number | undefined, price: number) => {
+const percentFromDiscounted = (
+  discountedPrice: number | undefined,
+  price: number
+) => {
   const diff = price - (discountedPrice ?? price);
-  return Math.ceil(diff / price * 100);
+  return Math.ceil((diff / price) * 100);
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="card w-full">
       <figure>
-        {
-          product.discounted &&
+        {product.discounted && (
           <div className="badge badge-accent badge-xl absolute top-2 right-2">
-            SAVE {percentFromDiscounted(product.discountedPrice, product.price)}%
+            SAVE {percentFromDiscounted(product.discountedPrice, product.price)}
+            %
           </div>
-        }
-        <img
-          src={"./products/" + product.id + ".png"}
-          alt={product.name} />
+        )}
+        <a href={`/product/${product.id}`}>
+          <img src={"./products/" + product.id + ".png"} alt={product.name} />
+        </a>
       </figure>
       <div className="card-body grid grid-cols-3">
         <div className="col col-span-2">
@@ -48,18 +51,26 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <p>{truncateDescription(product.details)}</p>
           <div className="flex w-fit items-center my-2">
             <Rating rating={product.rating} />
-            <p className="ml-2">{roundTo(product.rating, 2) + " (" + product.numRatings + ")"}</p>
+            <p className="ml-2">
+              {roundTo(product.rating, 2) + " (" + product.numRatings + ")"}
+            </p>
           </div>
           <div className="flex w-fit text-lg mt-4">
-            <p className={product.discounted ? "line-through" : ""}>${product.price}</p>
-            {product.discounted && <p className="text-red-700 ml-2">${product.discountedPrice}</p>}
+            <p className={product.discounted ? "line-through" : ""}>
+              ${product.price}
+            </p>
+            {product.discounted && (
+              <p className="text-red-700 ml-2">${product.discountedPrice}</p>
+            )}
           </div>
         </div>
 
         <div className="col flex flex-col items-end">
           {product.styles && <ColourSquares colours={product.styles} />}
           <div className="card-actions py-5">
-            <button className="btn btn-primary"><FontAwesomeIcon icon={faCartShopping} /></button>
+            <button className="btn btn-primary">
+              <FontAwesomeIcon icon={faCartShopping} />
+            </button>
           </div>
         </div>
       </div>

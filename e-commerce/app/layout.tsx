@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { CartProvider } from "./context/CartContext";
 config.autoAddCss = false;
 
 const geistSans = Geist({
@@ -31,8 +32,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="w-full h-fit p-2 text-center bg-accent text-accent-content text-sm">CANADA DAY SALE - ADDITIONAL 10% OFF STORE WIDE</div>
-        {children}
+        <div className="w-full h-fit p-2 text-center bg-accent text-accent-content text-sm">
+          CANADA DAY SALE - ADDITIONAL 10% OFF STORE WIDE
+        </div>
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );

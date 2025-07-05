@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div>
-      <NavBar itemsInCart={2} />
+      <NavBar />
       <Hero />
       <section>
         <div className="flex justify-center px-10 sm:px-20 md:px-30">

@@ -1,17 +1,24 @@
-"use client"
+"use client";
 
-import { faCartShopping, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "./SearchBar";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useCart } from "../context/CartContext";
 
-type NavBarProps = {
-  itemsInCart: number;
-};
 
-const NavBar = ({ itemsInCart }: NavBarProps) => {
+
+const NavBar = () => {
+  const { state } = useCart();
   const [showSearch, setShowSearch] = useState(false);
+  let numberOfItems = state.reduce(
+    (accumulator, currentItem) => accumulator + currentItem.quantity,
+    0
+  );
 
   useEffect(() => {
     document.getElementById("search-mobile")?.focus();
@@ -21,7 +28,9 @@ const NavBar = ({ itemsInCart }: NavBarProps) => {
     <nav>
       <div className="navbar px-5 md:px-10">
         <div className="flex navbar-start">
-          <div className="w-30"> {/* placeholder */}
+          <div className="w-30">
+            {" "}
+            {/* placeholder */}
             {/* logo */}
           </div>
           <div className="hidden md:block navbar-start">
@@ -43,7 +52,11 @@ const NavBar = ({ itemsInCart }: NavBarProps) => {
           </div>
           <div className="indicator">
             {/* cart */}
-            <div className="absolute -right-0.5 -top-0.5 rounded-full text-xs bg-secondary text-secondary-content w-4 h-4 text-center">{itemsInCart > 0 && itemsInCart}</div>
+            {state.length > 0 && (
+              <div className="absolute -right-0.5 -top-0.5 rounded-full text-xs bg-secondary text-secondary-content w-4 h-4 text-center">
+                {numberOfItems}
+              </div>
+            )}
             <Link className="btn btn-circle btn-ghost text-lg" href="/cart">
               <FontAwesomeIcon icon={faCartShopping} />
             </Link>
