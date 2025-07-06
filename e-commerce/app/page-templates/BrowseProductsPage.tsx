@@ -87,17 +87,14 @@ const BrowseProductsPage = ({
     filterCategory: string;
     filterValues: string[]
   }) => {
-    const [open, setOpen] = useState(true);
-
     return (
       <>
         <div className="divider"></div>
 
-        <div className="collapse">
-          <input type="checkbox" checked={open} onChange={(evt) => { setOpen(evt.target.checked); }} />
+        <div className="collapse collapse-plus">
+          <input type="checkbox" defaultChecked />
           <div className="collapse-title p-0 flex items-center justify-between">
-            <h2 className="text-primary text-xl">{filterCategory}</h2>
-            <FontAwesomeIcon icon={open ? faMinus : faPlus} />
+            <h2 className="text-primary lg:text-xl">{filterCategory}</h2>
           </div>
           <div className="collapse-content p-0 flex flex-col">
             {
@@ -111,73 +108,92 @@ const BrowseProductsPage = ({
     );
   }
 
+  const [openFilters, setOpenFilters] = useState(true);
+
   return (
     <div className="my-10 grid grid-cols-5">
       {/* filters */}
-      <div className="hidden lg:block pr-10 col col-span-1">
-        <div className="divider divider-start"><h1 className="text-primary text-3xl">Filters</h1></div>
+      <div className="w-full col-span-5 lg:pr-10 lg:col lg:col-span-1">
+        <div className="divider divider-start" >
+          <h1 className="text-primary text-lg lg:text-3xl">Filters</h1>
+        </div>
 
         <button
           className="btn btn-ghost"
-          onClick={
-            () => {
-              setActiveFilters(new Map());
-              setPriceMax("6000");
-            }
-          }
+          onClick={() => {
+            setOpenFilters(!openFilters);
+          }}
         >
-          <FontAwesomeIcon icon={faXmark} /> Clear all
+          <FontAwesomeIcon icon={openFilters ? faMinus : faPlus} />
+          {openFilters ? "Hide" : "Show"} Filters
         </button>
 
-        {/* price */}
-        <div>
-          <div className="divider"></div>
-          <h2 className="text-primary text-xl">Price</h2>
-          <div className="flex my-3">
-            <span className="mr-3">$0</span>
-            <input
-              id="price picker"
-              type="range"
-              min={0}
-              max={6000}
-              value={priceMax}
-              step={200}
-              className="range range-xs"
-              onChange={
-                (evt) => {
-                  setPriceMax(evt.target.value);
+        {
+          openFilters &&
+          <>
+            <button
+              className="btn btn-ghost"
+              onClick={
+                () => {
+                  setActiveFilters(new Map());
+                  setPriceMax("6000");
                 }
               }
-            />
-            <span className="ml-3">${priceMax}</span>
-          </div>
-        </div>
+            >
+              <FontAwesomeIcon icon={faXmark} /> Clear all
+            </button>
 
-        {/* filters depending on category */}
-        {
-          category === "all" ?
+            {/* price */}
             <div>
               <div className="divider"></div>
-              <h2 className="text-primary text-xl">Categories</h2>
-              <div className="flex flex-col">
-                <FilterItem filterName="Sofas and Couches" filterCategory="Category" />
-                <FilterItem filterName="Tables and Chairs" filterCategory="Category" />
-                <FilterItem filterName="Office" filterCategory="Category" />
-                <FilterItem filterName="Home Decor" filterCategory="Category" />
+              <h2 className="text-primary lg:text-xl">Price</h2>
+              <div className="flex my-3">
+                <span className="mr-3">$0</span>
+                <input
+                  id="price picker"
+                  type="range"
+                  min={0}
+                  max={6000}
+                  value={priceMax}
+                  step={200}
+                  className="range range-xs"
+                  onChange={
+                    (evt) => {
+                      setPriceMax(evt.target.value);
+                    }
+                  }
+                />
+                <span className="ml-3">${priceMax}</span>
               </div>
             </div>
-            :
-            <>
-              {
-                filters.get(category)?.map(([filterType, filterValues], idx) => {
-                  return (
-                    <div key={idx}>
-                      <FilterSection filterCategory={filterType} filterValues={filterValues} />
-                    </div>
-                  );
-                })
-              }
-            </>
+
+            {/* filters depending on category */}
+            {
+              category === "all" ?
+                <div>
+                  <div className="divider"></div>
+                  <h2 className="text-primary lg:text-xl">Categories</h2>
+                  <div className="flex flex-col">
+                    <FilterItem filterName="Sofas and Couches" filterCategory="Category" />
+                    <FilterItem filterName="Tables and Chairs" filterCategory="Category" />
+                    <FilterItem filterName="Office" filterCategory="Category" />
+                    <FilterItem filterName="Home Decor" filterCategory="Category" />
+                  </div>
+                </div>
+                :
+                <>
+                  {
+                    filters.get(category)?.map(([filterType, filterValues], idx) => {
+                      return (
+                        <div key={idx}>
+                          <FilterSection filterCategory={filterType} filterValues={filterValues} />
+                        </div>
+                      );
+                    })
+                  }
+                </>
+            }
+          </>
         }
       </div>
 
