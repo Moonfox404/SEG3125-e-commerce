@@ -170,7 +170,7 @@ export function DeliveryInfo({
           />
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-5 max-sm:flex-col">
           <button
             type="button"
             onClick={onBack}
@@ -187,7 +187,7 @@ export function DeliveryInfo({
         </div>
       </form>
 
-      <div className="bg-white p-6 shadow">
+      <div className="bg-white p-6 shadow overflow-scroll">
         <h3 className="text-lg font-medium mb-2">Delivery Summary</h3>
         <p>
           <strong>Name:</strong> {info.fullName || "..."}
