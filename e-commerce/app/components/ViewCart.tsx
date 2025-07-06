@@ -52,7 +52,7 @@ export function ViewCart({ totalItems, subTotal, onNext }: ViewCartProps) {
       <div className="bg-gray-100 flex flex-col mt-4">
         <CartSummary totalItems={totalItems} subtotal={subTotal} />
         <button
-          className="mt-4 self-end bg-accent text-white py-2 rounded w-fit px-5 hover:bg-green-600 transition duration-150 ease-in-out hover:scale-105 cursor-pointer"
+          className="mt-4 self-end btn btn-primary btn-xl w-fit"
           onClick={onNext}
         >
           Proceed to Next Step

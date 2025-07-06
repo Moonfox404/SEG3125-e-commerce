@@ -289,14 +289,14 @@ export function Payment({
           <button
             type="button"
             onClick={onBack}
-            className="mt-4 self-center bg-primary text-white py-2 rounded w-fit px-5 hover:bg-green-800 transition duration-150 ease-in-out hover:scale-105 cursor-pointer"
+            className="mt-4 self-end btn btn-primary btn-xl w-fit bg-stone-600"
             disabled={loadingStage !== "idle"}
           >
             Back
           </button>
           <button
             type="submit"
-            className="mt-4 self-center bg-accent text-white py-2 rounded w-fit px-5 hover:bg-green-600 transition duration-150 ease-in-out hover:scale-105 cursor-pointer"
+            className="mt-4 self-end btn btn-primary btn-xl w-fit"
             disabled={loadingStage !== "idle"}
           >
             Continue
