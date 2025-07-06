@@ -35,11 +35,20 @@ export default function Home() {
       </section>
       <section id="categories">
         <div className="px-10 sm:px-20 lg:px-30 min-h-20 my-15">
-          <CategoriesTabs selected={category} setCategory={setCategory}/>
+          <CategoriesTabs selected={category} setCategory={setCategory} />
         </div>
         <div className="px-10 sm:px-20 lg:px-30 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
           {
-            Array.from({length: 4}, (_, idx) => <div key={idx}><ProductCard product={MockProducts[0]} /></div>)
+            MockProducts
+              .filter((product) => product.category === category)
+              .slice(0, 4)
+              .map((product, idx) => {
+                return (
+                  <div key={idx}>
+                    <ProductCard product={product} />
+                  </div>
+                );
+              })
           }
         </div>
         <div className="flex justify-center">
