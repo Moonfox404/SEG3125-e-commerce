@@ -47,11 +47,11 @@ export default function ProductDetails({ productID }: ProductDetailsProps) {
       <div className="flex items-baseline gap-2">
         {product.discounted && product.discountedPrice ? (
           <>
-            <span className="text-gray-400 line-through">
-              ${product.price.toFixed(2)}
-            </span>
             <span className="text-xl font-bold text-red-600">
               ${product.discountedPrice.toFixed(2)}
+            </span>
+            <span className="text-gray-400 line-through">
+              ${product.price.toFixed(2)}
             </span>
           </>
         ) : (
