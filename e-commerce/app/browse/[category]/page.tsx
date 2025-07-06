@@ -18,10 +18,10 @@ export default async function ProductFromCategoryPage({
           <li><Link href="/#categories">Categories</Link></li>
           <li>{parsedCategory}</li>
         </ul>
-        <BrowseProductsPage category={parsedCategory as CategoryName} products={
-          Array.from({ length: 80 }, () => MockProducts[0])
-        } />
       </div>
+      <BrowseProductsPage category={parsedCategory as CategoryName} products={
+        MockProducts.filter((product) => product.category === parsedCategory)
+      } />
     </main>
   );
 };

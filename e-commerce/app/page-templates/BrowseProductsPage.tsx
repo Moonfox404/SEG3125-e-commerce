@@ -1,6 +1,6 @@
 "use client";
 
-import { act, useState } from "react";
+import { act, useEffect, useState } from "react";
 import ProductGrid from "../components/ProductGrid";
 import { MockProducts, Product } from "../mock-data/MockProducts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,15 +36,28 @@ const filters: Map<CategoryName, [string, string[]][]> = new Map([
   ]
 ]);
 
+const addFilter = (filterName: string, filterCategory: string, currentList: Product[]) => {
+  return currentList.filter((product) => {
+    if (filterCategory === "Type") {
+      return product.type === filterName;
+    } else if (filterCategory === "Colour") {
+      return (product.styles?.indexOf(filterName) ?? -1) !== -1;
+    } else if (filterCategory === "Material") {
+      return (product.material?.indexOf(filterName) ?? -1) !== -1;
+    } else {
+      // category
+      return product.category === filterName;
+    }
+  });
+}
+
 const BrowseProductsPage = ({
   products,
   category
 }: {
-  products?: Product[],
+  products: Product[],
   category: CategoryName
 }) => {
-  const [activeFilters, setActiveFilters] = useState<Map<string, Set<string>>>(new Map());
-  const [priceMax, setPriceMax] = useState("6000");
 
   const FilterItem = ({
     filterName,
@@ -64,14 +77,30 @@ const BrowseProductsPage = ({
           checked={activeFilters.get(filterCategory)?.has(filterName)}
           onChange={
             (evt) => {
+
               if (evt.target.checked) {
                 if (!activeFilters.has(filterCategory)) {
                   activeFilters.set(filterCategory, new Set());
                 }
                 activeFilters.get(filterCategory)?.add(filterName);
+
+                // shrink the existing filtered list
+                setFilteredProducts(addFilter(filterName, filterCategory, filteredProducts));
               } else {
                 activeFilters.get(filterCategory)?.delete(filterName);
+
+                // remake the filtered list because it may grow
+                let filtered = products;
+                activeFilters.entries().forEach(([filterType, filterValues]) => {
+                  filterValues.forEach((filterValue) => {
+                    filtered = addFilter(filterValue, filterType, filtered);
+                  })
+                })
+
+                setFilteredProducts(filtered);
               }
+
+              setActiveFilters(new Map(activeFilters));
             }
           }
         />
@@ -108,7 +137,16 @@ const BrowseProductsPage = ({
     );
   }
 
+  const [activeFilters, setActiveFilters] = useState<Map<string, Set<string>>>(new Map());
+  const [priceMax, setPriceMax] = useState("6000");
   const [openFilters, setOpenFilters] = useState(true);
+  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredByPriceProducts, setFilteredByPriceProducts] = useState(filteredProducts);
+
+  useEffect(() => {
+    const filtered = filteredProducts.filter((products) => products.price <= Number(priceMax));
+    setFilteredByPriceProducts(filtered);
+  }, [priceMax, filteredProducts])
 
   return (
     <div className="my-10 grid grid-cols-5">
@@ -136,6 +174,7 @@ const BrowseProductsPage = ({
               onClick={
                 () => {
                   setActiveFilters(new Map());
+                  setFilteredProducts(products)
                   setPriceMax("6000");
                 }
               }
@@ -199,7 +238,7 @@ const BrowseProductsPage = ({
 
       {/* items */}
       <div className="col col-span-5 lg:col-span-4">
-        <ProductGrid products={products ?? MockProducts} />
+        <ProductGrid products={filteredByPriceProducts} />
       </div>
     </div>
   );
