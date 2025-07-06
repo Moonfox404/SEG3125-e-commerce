@@ -1,6 +1,7 @@
+// context/CartContext.tsx
 "use client";
 
-import { createContext, useContext, useReducer, useEffect } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 
 type CartItem = {
   productId: string;
@@ -9,11 +10,13 @@ type CartItem = {
 };
 
 type CartState = CartItem[];
+
 type CartAction =
   | { type: "HYDRATE"; payload: CartItem[] }
   | { type: "ADD_ITEM"; payload: CartItem }
   | { type: "REMOVE_ITEM"; payload: { productId: string } }
-  | { type: "UPDATE_QTY"; payload: CartItem };
+  | { type: "UPDATE_QTY"; payload: CartItem }
+  | { type: "CLEAR_CART" };
 
 const CartContext = createContext<{
   state: CartState;
@@ -45,6 +48,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       );
     case "REMOVE_ITEM":
       return state.filter((i) => i.productId !== action.payload.productId);
+    case "CLEAR_CART":
+      return [];
     default:
       return state;
   }
@@ -65,9 +70,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Whenever cart state changes, also update local storage
+  // Whenever state changes, persist or clear localStorage
   useEffect(() => {
-    window.localStorage.setItem("cart", JSON.stringify(state));
+    if (state.length > 0) {
+      window.localStorage.setItem("cart", JSON.stringify(state));
+    } else {
+      window.localStorage.removeItem("cart");
+    }
   }, [state]);
 
   return (

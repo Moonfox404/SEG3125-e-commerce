@@ -11,7 +11,6 @@ type CartItemProps = {
   onQuantityChange: (newQty: number) => void;
   onRemove: () => void;
 };
-
 export function CartItem({
   productID,
   selectedStyle,
@@ -20,31 +19,30 @@ export function CartItem({
   onRemove,
 }: CartItemProps) {
   const product = MockProducts[productID];
-
   return (
-    <div className="flex items-center bg-white p-5 shadow">
-      <div className="w-24 h-24 relative">
+    <div className="flex flex-col sm:flex-row items-center bg-white p-4 sm:p-5 shadow mb-4">
+      <div className="w-full sm:w-24 h-48 sm:h-24 relative mb-4 sm:mb-0">
         <img
           src={`../../products/${product.id}.png`}
           alt={product.name}
-          className="object-cover"
+          className="w-full h-full object-contain rounded"
         />
       </div>
-      <div className="flex-1 px-4">
-        <h3 className="font-semibold text-lg">{product.name}</h3>
+      <div className="flex-1 px-0 sm:px-4 w-full">
+        <h3 className="font-semibold text-lg truncate">{product.name}</h3>
         {product.styles && (
           <p className="text-sm text-gray-600">Styles: {selectedStyle}</p>
         )}
         <div className="flex items-center mt-2">
           <button
-            className="px-2 cursor-pointer hover:scale-125 duration-75 ease-in-out"
+            className="px-2 cursor-pointer hover:scale-110 duration-75 ease-in-out"
             onClick={() => onQuantityChange(Math.max(1, quantity - 1))}
           >
             –
           </button>
-          <span className="px-4">{quantity}</span>
+          <span className="px-4 text-base">{quantity}</span>
           <button
-            className="px-2 cursor-pointer hover:scale-125 duration-75 ease-in-out"
+            className="px-2 cursor-pointer hover:scale-110 duration-75 ease-in-out"
             onClick={() => onQuantityChange(quantity + 1)}
           >
             +
@@ -57,20 +55,20 @@ export function CartItem({
           Remove
         </button>
       </div>
-      <div className="w-24 text-right font-semibold">
-        <div className="flex flex-col items-baseline gap-2">
+      <div className="w-full sm:w-24 text-right font-semibold mt-4 sm:mt-0">
+        <div className="flex flex-col items-end">
           {product.discounted && product.discountedPrice ? (
             <>
-              <span className="text-gray-400 line-through">
+              <span className="text-gray-400 line-through text-sm">
                 ${(product.price * quantity).toFixed(2)}
               </span>
-              <span className="text-xl font-bold text-red-600">
+              <span className="text-xl sm:text-lg font-bold text-red-600">
                 ${(product.discountedPrice * quantity).toFixed(2)}
               </span>
             </>
           ) : (
-            <span className="text-xl font-bold">
-              ${product.price.toFixed(2)}
+            <span className="text-xl sm:text-lg font-bold">
+              ${(product.price * quantity).toFixed(2)}
             </span>
           )}
         </div>

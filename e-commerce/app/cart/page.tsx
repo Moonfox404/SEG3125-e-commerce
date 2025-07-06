@@ -87,7 +87,7 @@ export default function Cart() {
   return (
     <div>
       <NavBar />
-      <div className="w-full h-screen flex flex-col items-center justify-center gap-5">
+      <div className="w-full flex flex-col items-center justify-center gap-5">
         <div className="p-5 w-[80%] bg-gray-100">
           <CartProgressBar current={step}></CartProgressBar>
         </div>

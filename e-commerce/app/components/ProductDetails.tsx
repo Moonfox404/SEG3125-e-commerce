@@ -31,7 +31,6 @@ export default function ProductDetails({ productID }: ProductDetailsProps) {
   const { dispatch } = useCart();
 
   function handleAdd() {
-    console.log("dispatching add item to cart");
     dispatch({
       type: "ADD_ITEM",
       payload: {

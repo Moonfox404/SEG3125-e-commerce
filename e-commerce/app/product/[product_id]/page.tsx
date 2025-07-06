@@ -2,6 +2,7 @@ import { MockProducts } from "@/app/mock-data/MockProducts";
 import NavBar from "../../components/NavBar";
 import ProductDetails from "../../components/ProductDetails";
 import ProductImages from "../../components/ProductImages";
+import Footer from "@/app/components/Footer";
 
 export default async function Product({
   params,
@@ -24,6 +25,7 @@ export default async function Product({
           `Could not find Product with id ${product_id}. Please return to items page`
         )}
       </div>
+      <Footer></Footer>
     </div>
   );
 }

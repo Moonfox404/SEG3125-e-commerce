@@ -7,6 +7,7 @@ import DealsCarousel from "./components/DealsCarousel";
 import { MockProducts } from "./mock-data/MockProducts";
 import ProductCard from "./components/ProductCard";
 import Link from "next/link";
+import Footer from "./components/Footer";
 import { useState } from "react";
 
 export default function Home() {
@@ -22,14 +23,15 @@ export default function Home() {
             <h1 className="text-4xl">Deals of the Day</h1>
           </div>
         </div>
-        <DealsCarousel id="deals-carousel" deals={
-          Array.from({ length: 10 }, (_, i) => {
+        <DealsCarousel
+          id="deals-carousel"
+          deals={Array.from({ length: 10 }, (_, i) => {
             return {
               img: "/products/0.png",
-              details: "A very good offer. (" + i + ")"
-            }
-          })
-        } />
+              details: "A very good offer. (" + i + ")",
+            };
+          })}
+        />
       </section>
       <section id="categories">
         <div className="px-10 sm:px-20 lg:px-30 min-h-20 my-15">
@@ -47,6 +49,7 @@ export default function Home() {
           }
         </div>
       </section>
+      <Footer></Footer>
     </div>
   );
 }

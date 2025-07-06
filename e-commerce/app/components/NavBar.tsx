@@ -10,6 +10,7 @@ import SearchBar from "./SearchBar";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "../context/CartContext";
+import Logo from "./Logo";
 import CategoriesNav from "./CategoriesNav";
 import { useRouter } from "next/navigation";
 
@@ -42,10 +43,10 @@ const NavBar = ({
     <nav>
       <div className="navbar px-5 md:px-10">
         <div className="flex navbar-start">
-          <div className="w-30">
-            {" "}
-            {/* placeholder */}
-            {/* logo */}
+          <div className="w-fit p-5 mr-5 text-primary">
+            <a href="/">
+              <Logo />
+            </a>
           </div>
           <div className="hidden md:block navbar-start">
             {/* search bar */}
