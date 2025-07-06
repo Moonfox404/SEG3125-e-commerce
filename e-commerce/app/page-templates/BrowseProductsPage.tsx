@@ -1,6 +1,6 @@
 "use client";
 
-import { act, useEffect, useState } from "react";
+import { act, Fragment, useEffect, useState } from "react";
 import ProductGrid from "../components/ProductGrid";
 import { MockProducts, Product } from "../mock-data/MockProducts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -62,16 +62,13 @@ const BrowseProductsPage = ({
   const FilterItem = ({
     filterName,
     filterCategory,
-    renderId
   }: {
     filterName: string;
     filterCategory: string;
-    renderId?: string | number
   }) => {
     return (
       <label className="label my-3">
         <input
-          key={renderId}
           type="checkbox"
           className="checkbox checkbox-sm checkbox-secondary"
           checked={activeFilters.get(filterCategory)?.has(filterName)}
@@ -128,7 +125,9 @@ const BrowseProductsPage = ({
           <div className="collapse-content p-0 flex flex-col">
             {
               filterValues.map((filterName, idx) => {
-                return <FilterItem renderId={idx} filterName={filterName} filterCategory={filterCategory} />
+                return <Fragment key={idx}>
+                  <FilterItem filterName={filterName} filterCategory={filterCategory} />
+                </Fragment>
               })
             }
           </div>

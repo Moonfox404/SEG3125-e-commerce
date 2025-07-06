@@ -5,7 +5,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 type PaginationProps = {
   numPages: number;
@@ -22,15 +22,12 @@ const Pagination = ({ numPages, onToggle }: PaginationProps) => {
   const PageTab = ({
     label,
     checked = false,
-    renderKey
   }: {
     label: number;
     checked?: boolean;
-    renderKey?: number | string;
   }) => {
     return (
       <input
-        key={renderKey}
         type="radio"
         name="page_select"
         className="tab"
@@ -65,7 +62,9 @@ const Pagination = ({ numPages, onToggle }: PaginationProps) => {
             // display all page numbers if less than or equal to 5
             (pageNum, idx) => {
               return (
-                <PageTab renderKey={idx} label={pageNum} checked={currentPage === pageNum} />
+                <Fragment key={idx}>
+                  <PageTab label={pageNum} checked={currentPage === pageNum} />
+                </Fragment>
               );
             }
           )

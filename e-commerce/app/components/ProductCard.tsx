@@ -67,11 +67,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="col flex items-center md:flex-col md:items-end">
           {product.styles && <ColourSquares colours={product.styles} />}
-          <div className="card-actions py-5">
-            <button className="btn btn-primary">
-              <FontAwesomeIcon icon={faCartShopping} />
-            </button>
-          </div>
         </div>
       </div>
     </div>
