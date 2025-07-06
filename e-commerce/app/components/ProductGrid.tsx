@@ -15,13 +15,13 @@ const ProductGrid = ({
   return (
     <div className="size-full">
       <div className="flex items-center w-full">
-        <p className="w-full text-center">{9 * (page - 1) + 1} - {9 * page} of {products.length} items</p>
+        <p className="w-full text-center">{9 * (page - 1) + 1} - {Math.min(9 * page, products.length)} of {products.length} items</p>
       </div>
 
       {/* items */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {
-          products.slice(9 * (page - 1), 9 * page).map((product, idx) => {
+          products.slice(9 * (page - 1), Math.min(9 * page, products.length)).map((product, idx) => {
             return (
               <div key={idx} className="col">
                 <ProductCard product={product} />
