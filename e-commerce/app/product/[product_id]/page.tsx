@@ -3,6 +3,7 @@ import NavBar from "../../components/NavBar";
 import ProductDetails from "../../components/ProductDetails";
 import ProductImages from "../../components/ProductImages";
 import Footer from "@/app/components/Footer";
+import Link from "next/link";
 
 export default async function Product({
   params,
@@ -14,7 +15,15 @@ export default async function Product({
   const currentProduct = MockProducts[product_id];
   return (
     <div>
-      <NavBar />
+      <NavBar withCategories />
+      <div className="mx-5 md:mx-10 my-5 breadcrumbs text-sm">
+        <ul>
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/#categories">Categories</Link></li>
+          <li><Link href={`/browse/${currentProduct.category}`}>{currentProduct.category}</Link></li>
+          <li>{currentProduct.name}</li>
+        </ul>
+      </div>
       <div className="w-full h-screen flex items-center justify-center">
         {currentProduct ? (
           <div className="flex max-sm:flex-col">
