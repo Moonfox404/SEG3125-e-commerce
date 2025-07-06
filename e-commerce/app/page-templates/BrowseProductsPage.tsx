@@ -83,22 +83,28 @@ const BrowseProductsPage = ({
                 }
                 activeFilters.get(filterCategory)?.add(filterName);
 
-                // shrink the existing filtered list
-                setFilteredProducts(addFilter(filterName, filterCategory, filteredProducts, products));
               } else {
                 activeFilters.get(filterCategory)?.delete(filterName);
-
-                // remake the filtered list because it may grow
-                let filtered: Set<Product> = new Set();
-                activeFilters.entries().forEach(([filterType, filterValues]) => {
-                  filterValues.forEach((filterValue) => {
-                    filtered = addFilter(filterValue, filterType, filtered, products);
-                  })
-                })
-
-                setFilteredProducts(filtered);
               }
 
+              // remake the filtered list
+              let filtered = new Set(products);
+
+              activeFilters.entries().forEach(([filterType, filterValues]) => {
+                if (filterValues.size > 0) {
+                  let filteredForCategory: Set<Product> = new Set();
+
+                  filterValues.forEach((filterValue) => {
+                    // OR behaviour between filters in same category
+                    filteredForCategory = addFilter(filterValue, filterType, filteredForCategory, products);
+                  })
+
+                  // AND behaviour between filter categories
+                  filtered = filtered.intersection(filteredForCategory);
+                }
+              })
+
+              setFilteredProducts(filtered);
               setActiveFilters(new Map(activeFilters));
             }
           }

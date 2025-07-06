@@ -8,8 +8,7 @@ export default async function ProductFromSearchPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const searchKey = (await searchParams).search;
-
-  const searchString = Array.isArray(searchKey) ? searchKey?.at(0) : searchKey as string;
+  const searchString = Array.isArray(searchKey) ? searchKey?.at(0) : searchKey;
 
   return (
     <main className="px-5 md:px-10">
