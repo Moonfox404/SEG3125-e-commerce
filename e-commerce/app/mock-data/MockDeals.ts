@@ -9,7 +9,7 @@ export const MockDeals: Deal[] = [
     img: "/products/0.png",
     id: "0",
     details:
-      "Get it while it lasts, this seek & modular sofa is ready to go for a great deal ",
+      "Get it while it lasts, this sleek & modular sofa is ready to go for a great deal ",
   },
   {
     img: "/products/1.png",

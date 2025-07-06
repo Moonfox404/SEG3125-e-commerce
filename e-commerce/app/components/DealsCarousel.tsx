@@ -49,15 +49,17 @@ const DealsCarousel = ({ deals, id }: DealsCarouselProps) => {
                 <img
                   src={deal.img}
                   alt={deal.details}
-                  className="w-full h-48 object-contain rounded-t-lg"
+                  className="w-full h-48 object-cover rounded-t-lg"
                 />
                 <div className="absolute top-2 left-2 bg-accent text-white text-sm px-2 py-1 rounded flex items-center gap-1">
                   <FontAwesomeIcon icon={faTag} />
-                  {(
-                    1 -
-                    MockProducts[Number(deal.id)].discountedPrice! /
+                  {Math.round(
+                    (
+                      1 -
+                      MockProducts[Number(deal.id)].discountedPrice! /
                       MockProducts[Number(deal.id)].price
-                  ).toFixed(2)}
+                    ) * 100
+                  )}
                   % OFF
                 </div>
               </div>

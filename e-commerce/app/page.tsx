@@ -24,7 +24,9 @@ export default function Home() {
             <h1 className="text-4xl">Deals of the Day</h1>
           </div>
         </div>
-        <DealsCarousel id="deals-carousel" deals={MockDeals} />
+        <DealsCarousel id="deals-carousel" deals={MockDeals.sort((a, b) => {
+          return MockProducts[Number(b.id)].price - MockProducts[Number(a.id)].price;  // show the most expensive deals first
+        })} />
       </section>
       <section id="categories">
         <div className="px-10 sm:px-20 lg:px-30 min-h-20 my-15">
