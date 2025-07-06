@@ -179,7 +179,7 @@ export const MockProducts: Product[] = [
     styles: ["Navy", "Charcoal"],
     inStock: true,
     discounted: true,
-    images: [1, 2, 3, 4],
+    images: [1, 2, 3],
     category: "Sofas and Couches",
     type: "3-Seater",
     material: ["Fabric", "Wood"],
