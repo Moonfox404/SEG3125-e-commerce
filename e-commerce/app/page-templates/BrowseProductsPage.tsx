@@ -36,8 +36,8 @@ const filters: Map<CategoryName, [string, string[]][]> = new Map([
   ]
 ]);
 
-const addFilter = (filterName: string, filterCategory: string, currentList: Product[]) => {
-  return currentList.filter((product) => {
+const addFilter = (filterName: string, filterCategory: string, currentList: Set<Product>, allProducts: Product[]) => {
+  const filtered = allProducts.filter((product) => {
     if (filterCategory === "Type") {
       return product.type === filterName;
     } else if (filterCategory === "Colour") {
@@ -49,6 +49,8 @@ const addFilter = (filterName: string, filterCategory: string, currentList: Prod
       return product.category === filterName;
     }
   });
+
+  return currentList.union(new Set(filtered));
 }
 
 const BrowseProductsPage = ({
@@ -82,15 +84,15 @@ const BrowseProductsPage = ({
                 activeFilters.get(filterCategory)?.add(filterName);
 
                 // shrink the existing filtered list
-                setFilteredProducts(addFilter(filterName, filterCategory, filteredProducts));
+                setFilteredProducts(addFilter(filterName, filterCategory, filteredProducts, products));
               } else {
                 activeFilters.get(filterCategory)?.delete(filterName);
 
                 // remake the filtered list because it may grow
-                let filtered = products;
+                let filtered: Set<Product> = new Set();
                 activeFilters.entries().forEach(([filterType, filterValues]) => {
                   filterValues.forEach((filterValue) => {
-                    filtered = addFilter(filterValue, filterType, filtered);
+                    filtered = addFilter(filterValue, filterType, filtered, products);
                   })
                 })
 
@@ -139,12 +141,12 @@ const BrowseProductsPage = ({
   const [activeFilters, setActiveFilters] = useState<Map<string, Set<string>>>(new Map());
   const [priceMax, setPriceMax] = useState("6000");
   const [openFilters, setOpenFilters] = useState(true);
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState(new Set(products));
   const [filteredByPriceProducts, setFilteredByPriceProducts] = useState(filteredProducts);
 
   useEffect(() => {
-    const filtered = filteredProducts.filter((products) => products.price <= Number(priceMax));
-    setFilteredByPriceProducts(filtered);
+    const filtered = Array.from(filteredProducts).filter((products) => products.price <= Number(priceMax));
+    setFilteredByPriceProducts(new Set(filtered));
   }, [priceMax, filteredProducts])
 
   return (
@@ -173,7 +175,7 @@ const BrowseProductsPage = ({
               onClick={
                 () => {
                   setActiveFilters(new Map());
-                  setFilteredProducts(products)
+                  setFilteredProducts(new Set(products))
                   setPriceMax("6000");
                 }
               }
@@ -237,7 +239,7 @@ const BrowseProductsPage = ({
 
       {/* items */}
       <div className="col col-span-5 lg:col-span-4">
-        <ProductGrid products={filteredByPriceProducts} />
+        <ProductGrid products={Array.from(filteredByPriceProducts)} />
       </div>
     </div>
   );
