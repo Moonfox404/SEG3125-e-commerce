@@ -1,7 +1,9 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Product } from "../mock-data/MockProducts";
 import ColourSquares from "./ColourSquares";
 import Rating from "./Rating";
 import Link from "next/link";
+import { faTag } from "@fortawesome/free-solid-svg-icons";
 
 const MAX_DESCR_CHARS = 50;
 
@@ -33,15 +35,20 @@ const percentFromDiscounted = (
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="card w-full">
-      <figure>
+      <figure className="relative w-full h-80 overflow-hidden rounded-t-lg">
         {product.discounted && (
           <div className="badge badge-accent badge-xl absolute top-2 right-2">
+            <FontAwesomeIcon icon={faTag} />
             SAVE {percentFromDiscounted(product.discountedPrice, product.price)}
             %
           </div>
         )}
-        <a href={`/product/${product.id}`}>
-          <img src={"/products/" + product.id + ".png"} alt={product.name} />
+        <a href={`/product/${product.id}`} className="block w-full h-full">
+          <img
+            src={"/products/" + product.id + ".png"}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
         </a>
       </figure>
       <div className="card-body grid grid-cols-1 md:grid-cols-3">
@@ -57,13 +64,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
               {roundTo(product.rating, 2) + " (" + product.numRatings + ")"}
             </p>
           </div>
-          <div className="flex w-fit text-lg mt-4">
-            <p className={product.discounted ? "line-through" : ""}>
+          <div className="flex w-fit text-lg mt-4 items-baseline">
+            {product.discounted && (
+              <p className="text-amber-700">${product.discountedPrice}</p>
+            )}
+            <p className={(product.discounted ? "line-through text-gray-400 text-sm " : "") + "ml-2"}>
               ${product.price}
             </p>
-            {product.discounted && (
-              <p className="text-red-700 ml-2">${product.discountedPrice}</p>
-            )}
           </div>
         </div>
 
