@@ -9,8 +9,7 @@ import SearchBar from "./SearchBar";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "../context/CartContext";
-
-
+import Logo from "./Logo";
 
 const NavBar = () => {
   const { state } = useCart();
@@ -28,10 +27,10 @@ const NavBar = () => {
     <nav>
       <div className="navbar px-5 md:px-10">
         <div className="flex navbar-start">
-          <div className="w-30">
-            {" "}
-            {/* placeholder */}
-            {/* logo */}
+          <div className="w-fit p-5 mr-5 text-primary">
+            <a href="/">
+              <Logo />
+            </a>
           </div>
           <div className="hidden md:block navbar-start">
             {/* search bar */}
@@ -42,10 +41,9 @@ const NavBar = () => {
           <div className="md:hidden">
             <button
               className="btn btn-circle btn-ghost text-lg"
-              onClick={
-                () => {
-                  setShowSearch(!showSearch);
-                }}
+              onClick={() => {
+                setShowSearch(!showSearch);
+              }}
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
@@ -63,12 +61,15 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      {
-        showSearch &&
+      {showSearch && (
         <div className="flex justify-center pb-5 w-full shadow md:hidden">
-          <SearchBar id="search-mobile" placeholder="I'm looking for..." onSearch={() => {}} />
+          <SearchBar
+            id="search-mobile"
+            placeholder="I'm looking for..."
+            onSearch={() => {}}
+          />
         </div>
-      }
+      )}
     </nav>
   );
 };
