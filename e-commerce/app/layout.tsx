@@ -34,7 +34,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="w-full h-fit p-2 text-center bg-accent text-accent-content text-sm">
-          CANADA DAY SALE - ADDITIONAL 10% OFF STORE WIDE
+          SUMMER SALE - ADDITIONAL 10% OFF STORE WIDE
         </div>
         <CartProvider>{children}</CartProvider>
       </body>
