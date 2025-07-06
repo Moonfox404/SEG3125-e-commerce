@@ -25,7 +25,7 @@ export default async function Product({
             <Link href="/#categories">Categories</Link>
           </li>
           <li>
-            <Link href={`/browse/${currentProduct.category}`}>
+            <Link href={`/browse/${currentProduct.category.replace(/ /g, "-")}`}>
               {currentProduct.category}
             </Link>
           </li>
