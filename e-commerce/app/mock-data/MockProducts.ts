@@ -10,6 +10,11 @@ export type Product = {
   inStock: boolean;
   discounted: boolean;
   images: number[]; // multiple product images
+
+  // for filtering
+  category: string;
+  type?: string;
+  material?: string[];
 };
 
 export const MockProducts: Product[] = [
@@ -22,9 +27,10 @@ export const MockProducts: Product[] = [
     numRatings: 207,
     price: 5075.95,
     discountedPrice: 3975.97,
-    styles: ["red", "green", "blue", "purple"],
+    styles: ["red", "green", "blue", "purple", "purple"],
     inStock: true,
     discounted: true,
     images: [1, 2, 3, 4, 5],
+    category: "Sofas and Couches"
   },
 ];
