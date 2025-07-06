@@ -17,10 +17,10 @@ export default async function Product({
       <NavBar />
       <div className="w-full h-screen flex items-center justify-center">
         {currentProduct ? (
-          <>
+          <div className="flex max-sm:flex-col">
             <ProductImages productID={product_id} />
             <ProductDetails productID={product_id} />
-          </>
+          </div>
         ) : (
           `Could not find Product with id ${product_id}. Please return to items page`
         )}

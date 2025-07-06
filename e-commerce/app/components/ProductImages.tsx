@@ -9,7 +9,7 @@ type ProductImagesProps = {
 export default function ProductImages({ productID }: ProductImagesProps) {
   const currentProduct = MockProducts[productID];
   const thumbnails = currentProduct.images;
-  const extraCount = thumbnails.length - 4;
+  const extraCount = thumbnails.length - 3;
 
   // Build full array: main image first, then thumbnails
   const allImages = [
@@ -46,11 +46,11 @@ export default function ProductImages({ productID }: ProductImagesProps) {
         onClick={() => openModal(0)}
       />
 
-      {/* Thumbnails row (up to 4) */}
+      {/* Thumbnails row (up to 3) */}
       <div className="flex flex-row gap-5 p-2 max-w-[400px] justify-center flex-wrap">
-        {allImages.slice(1, 5).map((img, idx) => {
+        {allImages.slice(1, 4).map((img, idx) => {
           const globalIdx = idx + 1; // offset by main
-          if (idx === 3 && extraCount > 0) {
+          if (idx === 2 && extraCount > 0) {
             return (
               <button
                 key={globalIdx}

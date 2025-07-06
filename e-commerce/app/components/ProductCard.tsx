@@ -33,15 +33,19 @@ const percentFromDiscounted = (
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="card w-full">
-      <figure>
+      <figure className="relative w-full min-h-64 max-h-80 overflow-hidden rounded-t-lg">
         {product.discounted && (
           <div className="badge badge-accent badge-xl absolute top-2 right-2">
             SAVE {percentFromDiscounted(product.discountedPrice, product.price)}
             %
           </div>
         )}
-        <a href={`/product/${product.id}`}>
-          <img src={"/products/" + product.id + ".png"} alt={product.name} />
+        <a href={`/product/${product.id}`} className="block w-full h-full">
+          <img
+            src={"/products/" + product.id + ".png"}
+            alt={product.name}
+            className="w-full h-full object-contain"
+          />
         </a>
       </figure>
       <div className="card-body grid grid-cols-1 md:grid-cols-3">
