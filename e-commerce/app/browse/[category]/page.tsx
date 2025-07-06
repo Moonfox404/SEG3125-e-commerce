@@ -19,7 +19,7 @@ export default async function ProductFromCategoryPage({
           <li>{parsedCategory}</li>
         </ul>
         <BrowseProductsPage category={parsedCategory as CategoryName} products={
-          Array.from({ length: 20 }, () => MockProducts[0])
+          Array.from({ length: 80 }, () => MockProducts[0])
         } />
       </div>
     </main>

@@ -13,9 +13,13 @@ const ProductGrid = ({
   const [page, setPage] = useState(1);
 
   return (
-    <div className="grid grid-rows-16 size-full">
+    <div className="size-full">
+      <div className="flex items-center w-full">
+        <p className="w-full text-center">{9 * (page - 1) + 1} - {9 * page} of {products.length} items</p>
+      </div>
+
       {/* items */}
-      <div className="row row-span-15 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {
           products.slice(9 * (page - 1), 9 * page).map((product, idx) => {
             return (
@@ -28,7 +32,7 @@ const ProductGrid = ({
       </div>
 
       {/* pagination */}
-      <div className="row row-span-1 flex justify-center items-center">
+      <div className="flex justify-center items-center">
         <div className="w-fit">
           <Pagination numPages={Math.ceil(products.length / 9)} onToggle={(pg) => { setPage(pg); }} />
         </div>
