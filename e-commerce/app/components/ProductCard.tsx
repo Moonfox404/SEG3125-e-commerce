@@ -1,8 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Product } from "../mock-data/MockProducts";
 import ColourSquares from "./ColourSquares";
 import Rating from "./Rating";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const MAX_DESCR_CHARS = 50;
 
@@ -47,8 +46,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
       </figure>
       <div className="card-body grid grid-cols-1 md:grid-cols-3">
         <div className="col md:col-span-2">
-          <h2 className="card-title">{product.name}</h2>
+          <Link href={`/product/${product.id}`}>
+            <h2 className="card-title">{product.name}</h2>
+          </Link>
           <p>{truncateDescription(product.details)}</p>
+
           <div className="flex w-fit items-center my-2">
             <Rating rating={product.rating} />
             <p className="ml-2">
