@@ -18,13 +18,21 @@ export default async function Product({
       <NavBar withCategories />
       <div className="mx-5 md:mx-10 my-5 breadcrumbs text-sm">
         <ul>
-          <li><Link href="/">Home</Link></li>
-          <li><Link href="/#categories">Categories</Link></li>
-          <li><Link href={`/browse/${currentProduct.category.replace(/ /g, "-")}`}>{currentProduct.category}</Link></li>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/#categories">Categories</Link>
+          </li>
+          <li>
+            <Link href={`/browse/${currentProduct.category.replace(/ /g, "-")}`}>
+              {currentProduct.category}
+            </Link>
+          </li>
           <li>{currentProduct.name}</li>
         </ul>
       </div>
-      <div className="w-full h-screen flex items-center justify-center">
+      <div className="w-full flex items-center justify-center">
         {currentProduct ? (
           <div className="flex max-sm:flex-col">
             <ProductImages productID={product_id} />

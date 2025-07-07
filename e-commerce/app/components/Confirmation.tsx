@@ -116,10 +116,7 @@ export function Confirmation({
         </div>
       </div>
 
-      <a
-        href="/"
-        className="mt-5 self-center bg-accent text-white py-2 rounded w-fit px-5 hover:bg-green-600 transition duration-150 ease-in-out hover:scale-105 cursor-pointer"
-      >
+      <a href="/" className="mt-4 btn btn-primary btn-xl w-fit self-center">
         Continue Shopping
       </a>
       {/* Survey Modal */}
@@ -279,13 +276,13 @@ function SurveyModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="self-center bg-primary text-white py-2 rounded w-fit px-5 hover:bg-green-800 transition duration-150 ease-in-out hover:scale-105 cursor-pointer"
+                  className="self-center btn btn-primary btn-md w-fit bg-stone-600"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="self-center bg-accent text-white py-2 rounded w-fit px-5 hover:bg-green-600 transition duration-150 ease-in-out hover:scale-105 cursor-pointer"
+                  className="self-center btn btn-primary btn-md w-fit"
                 >
                   Submit
                 </button>
